@@ -1,0 +1,35 @@
+---
+
+plugins:
+  - rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+
+Gemspec/DevelopmentDependencies:
+  # Enabled: false
+  EnforcedStyle: gemspec
+
+Metrics/BlockLength:
+  Exclude:
+    - fluent-plugin-pg-query.gemspec
+    - test/**/*.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - test/**/*.rb
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/ParameterLists:
+  Exclude:
+    - test/helper.rb
+
+Naming/MethodParameterName:
+  Exclude:
+    - lib/fluent/plugin/n_pg_query.rb
+
+Style/Documentation:
+  Enabled: false
