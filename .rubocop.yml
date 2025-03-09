@@ -11,6 +11,9 @@ Gemspec/DevelopmentDependencies:
   # Enabled: false
   EnforcedStyle: gemspec
 
+Metrics/AbcSize:
+  Max: 20
+
 Metrics/BlockLength:
   Exclude:
     - fluent-plugin-pg-query.gemspec
