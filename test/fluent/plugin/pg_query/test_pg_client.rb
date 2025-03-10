@@ -19,7 +19,11 @@ class PgClientTest < Test::Unit::TestCase
   sub_test_case 'quer' do
     test 'it uses a pg instance' do
       mocked_pg = mock('PG::Connection')
+      mocked_pg.stubs(:type_map_for_results=)
+
       PG.expects(:connect).once.returns(mocked_pg)
+      PG::BasicTypeMapForResults.stubs(:new)
+
       mocked_pg.expects(:exec).with('test').returns([])
 
       assert @pg_client.query('test')
@@ -27,8 +31,12 @@ class PgClientTest < Test::Unit::TestCase
 
     test 'it returns what is returned by pg instance' do
       mocked_pg = mock('PG::Connection')
+      mocked_pg.expects(:type_map_for_results=)
+
       PG.expects(:connect).once.returns(mocked_pg)
-      mocked_pg.expects(:exec).with('test').returns([{ test: 'test' }])
+      PG::BasicTypeMapForResults.stubs(:new)
+
+      mocked_pg.expects(:exec).once.with('test').returns([{ test: 'test' }])
 
       data = @pg_client.query('test')
       assert_equal [{ test: 'test' }], data

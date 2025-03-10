@@ -44,7 +44,11 @@ module Fluent
         end
 
         def pg
-          @pg ||= PG.connect(**pg_params)
+          return @pg if @pg
+
+          @pg = PG.connect(**pg_params)
+          @pg.type_map_for_results = PG::BasicTypeMapForResults.new(@pg)
+          @pg
         end
 
         def pg_params
